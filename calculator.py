@@ -85,6 +85,7 @@ class InvestorCalculator:
         self.trades = []
         self.matched_trades = []
         self.buy_trades_by_stock = {}  # For FIFO tracking
+        self.unmatched_sells = []  # Track unmatched sell trades
     
     def load_csv_data(self, csv_file) -> bool:
         """Load and validate CSV data"""
@@ -126,6 +127,10 @@ class InvestorCalculator:
     
     def calculate_fifo_matching(self):
         """Calculate capital gains using FIFO method"""
+        # Clear previous results
+        self.matched_trades = []
+        self.unmatched_sells = []
+        
         # Group trades by stock and sort by date
         trades_by_stock = {}
         for trade in self.trades:
@@ -173,9 +178,14 @@ class InvestorCalculator:
                             buy_queue.pop(0)
                     
                     # If there's remaining sell quantity, it means insufficient buy trades
+                    # Store this information for reporting instead of printing warnings
                     if remaining_sell_qty > 0:
-                        print(f"Warning: Insufficient buy quantity for {stock}. "
-                              f"Remaining sell qty: {remaining_sell_qty}")
+                        self.unmatched_sells.append({
+                            'stock': stock,
+                            'date': trade.date,
+                            'remaining_qty': remaining_sell_qty,
+                            'price': trade.price
+                        })
     
     def calculate_summary(self) -> Dict:
         """Calculate summary statistics for tax reporting"""
@@ -199,7 +209,8 @@ class InvestorCalculator:
             'Final Taxable Income': round(taxable_income, 2),
             'Total Trades Matched': len(self.matched_trades),
             'Total Buy Trades': len([t for t in self.trades if t.trade_type == 'BUY']),
-            'Total Sell Trades': len([t for t in self.trades if t.trade_type == 'SELL'])
+            'Total Sell Trades': len([t for t in self.trades if t.trade_type == 'SELL']),
+            'Unmatched Sells': len(self.unmatched_sells)
         }
     
     def get_results_dataframe(self) -> pd.DataFrame:
