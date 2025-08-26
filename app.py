@@ -18,7 +18,7 @@ def main():
         page_title="Investor ITR & GST Calculator",
         page_icon="💰",
         layout="wide",
-        initial_sidebar_state="expanded"
+        initial_sidebar_state="collapsed"  # Collapse sidebar since we're not using it
     )
     
     # Ultra-advanced CSS for modern, professional interface
@@ -348,51 +348,33 @@ def main():
         </div>
         """, unsafe_allow_html=True)
     
-    # Enhanced sidebar with glassmorphism design
-    with st.sidebar:
+    # File Upload Section (moved from sidebar to main page)
+    st.markdown("---")
+    st.markdown("### 📁 Upload Your Portfolio Data")
+    
+    # Create two columns for upload and instructions
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
         st.markdown("""
         <div class="glass-card">
-            <h2 style="color: #2d3748; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">
-                📁 Upload Portfolio
-            </h2>
+            <h3 style="color: #2d3748; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">
+                📁 Upload CSV File
+            </h3>
         </div>
         """, unsafe_allow_html=True)
         
         # File uploader with enhanced styling
         uploaded_file = st.file_uploader(
-            "Choose a CSV file",
+            "Choose your portfolio CSV file",
             type=['csv'],
             help="Upload your portfolio transactions in CSV format"
         )
         
-        st.markdown("---")
-        
-        # Enhanced format instructions
-        st.markdown("""
-        <div class="glass-card">
-            <h3 style="color: #4c51bf; margin-bottom: 1rem;">📋 Required CSV Format</h3>
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                <p style="margin: 0; font-weight: 600; color: #2d3748;">Required Columns:</p>
-                <ul style="margin: 0.5rem 0; color: #4a5568;">
-                    <li><code>Date</code> - YYYY-MM-DD format</li>
-                    <li><code>Type</code> - BUY or SELL</li>
-                    <li><code>Stock</code> - Security name</li>
-                    <li><code>Qty</code> - Quantity traded</li>
-                    <li><code>Price</code> - Price per unit</li>
-                    <li><code>Brokerage</code> - Brokerage charges</li>
-                </ul>
-                <p style="margin: 0.5rem 0 0 0; font-weight: 600; color: #2d3748;">Optional:</p>
-                <ul style="margin: 0.5rem 0 0 0; color: #4a5568;">
-                    <li><code>Dividend</code> - Dividend received</li>
-                </ul>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
         # Enhanced sample data with glassmorphism
         st.markdown("""
         <div class="glass-card">
-            <h3 style="color: #4c51bf; margin-bottom: 1rem;">📄 Sample Format</h3>
+            <h4 style="color: #4c51bf; margin-bottom: 1rem;">📄 Sample Data Format</h4>
         </div>
         """, unsafe_allow_html=True)
         
@@ -405,6 +387,38 @@ def main():
             'Brokerage': [25.0, 15.0, 20.0]
         })
         st.dataframe(sample_df, use_container_width=True)
+    
+    with col2:
+        # Enhanced format instructions
+        st.markdown("""
+        <div class="glass-card">
+            <h3 style="color: #4c51bf; margin-bottom: 1rem;">📋 Required CSV Format</h3>
+            <div style="background: rgba(102, 126, 234, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                <h4 style="margin: 0 0 1rem 0; font-weight: 700; color: #2d3748;">✅ Required Columns:</h4>
+                <div style="display: grid; gap: 0.8rem; color: #4a5568; font-size: 0.95rem;">
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Date</code> Transaction date (YYYY-MM-DD)</div>
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Type</code> BUY or SELL</div>
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Stock</code> Stock/Security name</div>
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Qty</code> Quantity traded</div>
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Price</code> Price per unit</div>
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Brokerage</code> Brokerage charges</div>
+                </div>
+                <h4 style="margin: 1.5rem 0 0.5rem 0; font-weight: 700; color: #2d3748;">✨ Optional Column:</h4>
+                <div style="color: #4a5568; font-size: 0.95rem;">
+                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Dividend</code> Dividend received (if any)</div>
+                </div>
+            </div>
+            <div style="background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38b2ac;">
+                <h4 style="margin: 0 0 1rem 0; color: #234e52; font-weight: 700;">💡 Quick Tips:</h4>
+                <ul style="margin: 0; color: #285e61; font-size: 0.9rem; line-height: 1.6;">
+                    <li>Ensure dates are in YYYY-MM-DD format</li>
+                    <li>Type should be exactly 'BUY' or 'SELL'</li>
+                    <li>All numeric values should be positive</li>
+                    <li>Stock names should be consistent across transactions</li>
+                </ul>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # Main content area with enhanced processing
     if uploaded_file is not None:
@@ -559,52 +573,132 @@ def main():
             """)
     
     else:
-        # Landing page content
+        # Enhanced landing page with better instructions
         st.markdown("---")
-        st.subheader("🚀 Get Started")
-        st.markdown("""
-        1. **Prepare your CSV file** with the required format (see sidebar)
-        2. **Upload the file** using the file uploader in the sidebar
-        3. **Review the results** including STCG, LTCG, and GST calculations
-        4. **Download the analysis** for your tax filing
-        """)
+        st.markdown("### 🚀 How to Get Started")
         
-        # Features highlight
+        # Enhanced getting started section
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4ecdc4 100%); padding: 2rem; border-radius: 20px; color: white; margin: 2rem 0; text-align: center; box-shadow: 0 15px 40px rgba(240, 147, 251, 0.3);">
+            <h3 style="margin: 0 0 1rem 0; font-size: 2rem; font-weight: 700;">✨ Professional Tax Calculation in 3 Simple Steps</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">1. Prepare Your Data</h4>
+                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Use the format shown above with all required columns</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">2. Upload & Process</h4>
+                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Our FIFO engine calculates everything instantly</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">3. Download Results</h4>
+                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Get professional reports for ITR filing</p>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Enhanced features section with glassmorphism cards
+        st.markdown("### 🎆 Why Choose Our Calculator?")
+        
         col1, col2, col3 = st.columns(3)
         
         with col1:
             st.markdown("""
-            **🔥 Key Features:**
-            - FIFO method calculation
-            - Automatic STCG/LTCG classification
-            - GST calculation on brokerage
-            - Dividend income tracking
-            """)
+            <div class="glass-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
+                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Core Features</h4>
+                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
+                    ✅ <strong>FIFO Method</strong> - Industry standard calculation<br>
+                    ✅ <strong>Auto Classification</strong> - STCG/LTCG detection<br>
+                    ✅ <strong>GST Calculation</strong> - 18% on brokerage charges<br>
+                    ✅ <strong>Dividend Tracking</strong> - Complete income analysis
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col2:
             st.markdown("""
-            **📈 Supported:**
-            - Equity transactions
-            - Multiple stocks
-            - Partial quantity matching
-            - Date-based holding period
-            """)
+            <div class="glass-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Supported Transactions</h4>
+                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
+                    📊 <strong>Equity Trading</strong> - All stock transactions<br>
+                    📊 <strong>Multiple Stocks</strong> - Portfolio-wide analysis<br>
+                    📊 <strong>Partial Matching</strong> - Precise quantity handling<br>
+                    📊 <strong>Date Intelligence</strong> - Smart holding period calculation
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col3:
             st.markdown("""
-            **💾 Export Options:**
-            - Detailed trade analysis CSV
-            - Tax summary CSV  
-            - Ready for ITR filing
-            - Professional formatting
-            """)
+            <div class="glass-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">💾</div>
+                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Professional Reports</h4>
+                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
+                    📝 <strong>Detailed Analysis</strong> - Trade-by-trade breakdown<br>
+                    📝 <strong>Tax Summary</strong> - Ready for CA consultation<br>
+                    📝 <strong>ITR Ready</strong> - Formatted for tax filing<br>
+                    📝 <strong>CSV Export</strong> - Professional formatting
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # Call to action with scroll-to-upload
+        st.markdown("""
+        <div style="text-align: center; margin: 3rem 0 2rem 0;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 16px; color: white; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
+                <h3 style="margin: 0 0 1rem 0; font-weight: 700;">👆 Ready to Calculate Your Taxes?</h3>
+                <p style="margin: 0 0 1rem 0; opacity: 0.9; font-size: 1.1rem;">Scroll up to the upload section and get started with your portfolio analysis!</p>
+                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <small style="opacity: 0.8;">⬆️ Upload your CSV file in the section above to begin</small>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Footer
+    # Enhanced footer with better formatting
     st.markdown("---")
+    
+    # Feature highlights section
+    st.markdown("### 🌟 Why Choose Our Calculator")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #e6f3ff 0%, #bae6fd 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #93c5fd;">
+            <h4 style="color: #1e40af; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">⚡ Ultra-Fast Processing</h4>
+            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">Advanced FIFO algorithm processes thousands of transactions in seconds</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #6ee7b7;">
+            <h4 style="color: #047857; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">🔒 Secure & Private</h4>
+            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">No data storage - all calculations happen in real-time on your browser</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #fae8ff 0%, #f3e8ff 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #d8b4fe;">
+            <h4 style="color: #7c3aed; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">📊 Professional Reports</h4>
+            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">Export-ready formats for CAs and tax filing software</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Simple footer
     st.markdown("""
-    <div style='text-align: center; color: #888;'>
-        <p>Investor ITR & GST Calculator | Built with Streamlit</p>
-        <p><small>⚠️ This tool is for informational purposes. Please consult a tax professional for official advice.</small></p>
+    <div style="text-align: center; padding: 2rem 0; border-top: 1px solid #e5e7eb; margin-top: 2rem;">
+        <p style="color: #6b7280; margin: 0; font-size: 0.9rem;">© 2024 Investor ITR & GST Calculator | Powered by Advanced FIFO Algorithm</p>
+        <p style="color: #9ca3af; margin: 0.5rem 0 0 0; font-size: 0.8rem;">Built with ❤️ using Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
 
