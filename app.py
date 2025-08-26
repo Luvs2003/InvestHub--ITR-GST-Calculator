@@ -21,404 +21,234 @@ def main():
         initial_sidebar_state="collapsed"  # Collapse sidebar since we're not using it
     )
     
-    # Ultra-advanced CSS for modern, professional interface
+    # Clean, fresh CSS theme
     st.markdown("""
     <style>
-    /* Import premium fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     
-    /* CSS Variables for consistent theming */
     :root {
-        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        --warning-gradient: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-        --glass-bg: rgba(255, 255, 255, 0.25);
-        --glass-border: rgba(255, 255, 255, 0.18);
-        --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
-        --shadow-hover: 0 15px 45px rgba(31, 38, 135, 0.5);
-        --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        --bg: #f6f7fb;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --primary: #6d28d9; /* purple */
+        --primary-600: #5b21b6;
+        --accent: #0ea5a4; /* teal */
+        --border: #e5e7eb;
+        --radius: 14px;
+        --shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
     }
-    
-    /* Global styling with enhanced typography */
+
     .main {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        padding-top: 0;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        min-height: 100vh;
+        background: var(--bg);
     }
-    
-    /* Ultra-modern header with advanced animations */
-    .ultra-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
-        background-size: 200% 200%;
-        animation: gradientShift 6s ease infinite;
-        padding: 4rem 2rem;
-        border-radius: 24px;
-        margin-bottom: 3rem;
-        color: white;
-        text-align: center;
+
+    .hero {
+        background: radial-gradient(1200px 500px at 10% -10%, #7c3aed 10%, transparent 60%),
+                    radial-gradient(1000px 500px at 90% 0%, #4f46e5 10%, transparent 60%),
+                    linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+        padding: 3rem 2rem;
+        border-radius: 20px;
+        color: #fff;
+        text-align: left;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 40px rgba(79,70,229,0.25);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
     }
-    
-    .ultra-header::before {
+    .hero::after {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-        background-size: 50px 50px;
-        animation: float 20s linear infinite;
+        inset: 0;
+        background-image: radial-gradient(#ffffff33 2px, transparent 2px);
+        background-size: 28px 28px;
+        opacity: .25;
         pointer-events: none;
     }
-    
-    .ultra-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-        animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    @keyframes float {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    
-    @keyframes shimmer {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 1; }
-    }
-    
-    .ultra-header h1 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 4rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 1;
-        background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: textShine 3s ease-in-out infinite;
-    }
-    
-    @keyframes textShine {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    
-    /* Advanced feature cards with 3D effects */
+    .hero-title { font-size: 2.25rem; font-weight: 800; margin: 0 0 .5rem 0; }
+    .hero-sub { max-width: 720px; color: #e9e9ff; margin: 0 0 1rem 0; font-size: 1rem; }
+    .badge-row { display:flex; gap:.5rem; align-items:center; margin-top:.75rem; }
+    .pill { background:#ffffff1a; border:1px solid #ffffff33; color:#fff; padding:.35rem .65rem; border-radius:999px; font-size:.8rem; }
+    .hero-cta { display:flex; gap:.75rem; margin-top:1rem; }
+    .hero-btn { background:#fff; color:#4f46e5; padding:.6rem 1rem; border-radius:10px; font-weight:700; border:1px solid #e5e7eb; }
+
     .feature-card-3d {
-        background: linear-gradient(145deg, #ffffff, #f8f9ff);
-        padding: 2.5rem 2rem;
-        border-radius: 20px;
-        margin: 1.5rem 0;
-        transition: var(--transition);
-        box-shadow: 
-            0 10px 30px rgba(102, 126, 234, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(102, 126, 234, 0.1);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
     }
-    
-    .feature-card-3d::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--primary-gradient);
-        opacity: 0;
-        transition: var(--transition);
-        z-index: 0;
-    }
-    
-    .feature-card-3d:hover::before {
-        opacity: 0.05;
-    }
-    
-    .feature-card-3d:hover {
-        transform: translateY(-10px) rotateX(5deg);
-        box-shadow: 
-            0 25px 50px rgba(102, 126, 234, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-    
-    /* Glassmorphism elements */
+
     .glass-card {
-        background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        padding: 2rem;
-        margin: 1rem 0;
-        box-shadow: var(--shadow-soft);
-        transition: var(--transition);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
     }
-    
-    .glass-card:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.35);
-        box-shadow: var(--shadow-hover);
-    }
-    
-    /* Enhanced buttons with animations */
+
     .stDownloadButton > button {
-        background: var(--primary-gradient) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 14px !important;
-        padding: 1rem 2.5rem !important;
+        background: var(--primary) !important;
+        color: #fff !important;
+        border: 1px solid var(--primary-600) !important;
+        border-radius: 10px !important;
+        padding: 0.75rem 1.25rem !important;
         font-weight: 600 !important;
-        font-size: 1.1rem !important;
-        transition: var(--transition) !important;
-        box-shadow: 
-            0 8px 25px rgba(102, 126, 234, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-        position: relative !important;
-        overflow: hidden !important;
     }
-    
-    .stDownloadButton > button::before {
-        content: '' !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: -100% !important;
-        width: 100% !important;
-        height: 100% !important;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
-        transition: var(--transition) !important;
+
+    .stDataFrame th {
+        background: var(--primary) !important;
+        color: #fff !important;
+        font-weight: 600 !important;
+        text-align: center !important;
     }
-    
-    .stDownloadButton > button:hover::before {
-        left: 100% !important;
-    }
-    
-    .stDownloadButton > button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 
-            0 15px 40px rgba(102, 126, 234, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-    }
-    
-    /* Enhanced sidebar */
-    .css-1d391kg {
-        background: linear-gradient(180deg, #f8f9ff 0%, #e8ecff 100%) !important;
-        border-right: 1px solid rgba(102, 126, 234, 0.1) !important;
-    }
-    
-    /* Advanced metric cards */
-    .metric-card-ultra {
-        background: linear-gradient(145deg, #ffffff, #f7fafc);
-        padding: 2rem;
-        border-radius: 18px;
-        box-shadow: 
-            0 15px 35px rgba(0,0,0,0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.7);
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-    }
-    
-    .metric-card-ultra:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 
-            0 25px 50px rgba(0,0,0,0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-    
-    /* Enhanced data tables */
-    .dataframe {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Custom scrollbar with gradient */
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: rgba(248, 249, 255, 0.5);
-        border-radius: 6px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: var(--primary-gradient);
-        border-radius: 6px;
-        border: 2px solid rgba(248, 249, 255, 0.5);
-    }
-    
-    .pulse-glow {
-        animation: pulseGlow 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulseGlow {
-        0%, 100% { 
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-        }
-        50% { 
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
-        }
-    }
-    
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-        .ultra-header h1 {
-            font-size: 2.8rem;
-        }
-        
-        .feature-card-3d {
-            padding: 2rem 1.5rem;
-        }
-    }
+    .stDataFrame td { text-align: center !important; }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
+
+    /* Top navbar */
+    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--border); padding:.6rem 1rem; margin-bottom:1rem; border-radius:12px; box-shadow: var(--shadow); }
+    .topnav .links { display:flex; gap:1rem; align-items:center; }
+    .topnav a { color: var(--text); text-decoration:none; font-weight:600; padding:.35rem .6rem; border-radius:8px; }
+    .topnav a:hover { background:#f1f5f9; }
+
+    /* Stepper */
+    .stepper { display:flex; gap:1rem; align-items:center; justify-content:center; margin: 0.5rem 0 1rem; }
+    .step { display:flex; align-items:center; gap:.5rem; color:#64748b; }
+    .dot { width:28px; height:28px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; border:2px solid #cbd5e1; background:#fff; font-weight:700; }
+    .active .dot { border-color: var(--primary); background: var(--primary); color:#fff; }
+    .active { color: var(--text); font-weight:700; }
+
+    /* Material-style cards (Google colors) */
+    .material-card { background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:0 6px 16px rgba(0,0,0,.06); padding:1.25rem 1.5rem; text-align:left; display:flex; gap:1rem; align-items:flex-start; min-height:160px; }
+    .material-icon { width:56px; height:56px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:1.25rem; font-weight:800; flex:0 0 56px; }
+    .mat-blue { background:#2196F3; }
+    .mat-green { background:#4CAF50; }
+    .mat-amber { background:#FFC107; color:#111; }
+    .mat-red { background:#F44336; }
+    .material-title { margin:0 0 .25rem 0; font-weight:700; color:var(--text); font-size:1.15rem; }
+    .material-sub { margin:0; color:#64748b; font-size:.97rem; line-height:1.55; }
+
+    /* Benefits section */
+    .benefits-wrap { padding: 1.5rem 0 0.5rem; }
+    .benefits-title { display:flex; align-items:center; gap:.5rem; font-weight:800; color:var(--text); margin:0 0 0.75rem 0; }
+    .benefit-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; }
+    .benefit-card { background:#fff; border:1px solid var(--border); border-radius:18px; padding:1.25rem 1.25rem; box-shadow:0 10px 28px rgba(79,70,229,.06); }
+    .benefit-card h4 { text-align:center; margin:.5rem 0 1rem 0; }
+    .benefit-item { display:flex; align-items:center; gap:.5rem; color:#334155; margin:.35rem 0; }
+    .benefit-bullet { color:#10b981; }
+
+    /* Gradient CTA */
+    .cta { margin-top:1rem; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border-radius:18px; padding:1.5rem 1rem; color:#fff; box-shadow:0 16px 40px rgba(79,70,229,.2); }
+    .cta h3 { margin:0 0 .5rem 0; display:flex; align-items:center; gap:.5rem; }
+    .cta-bar { margin-top:.75rem; background: linear-gradient(90deg, rgba(255,255,255,.25), rgba(255,255,255,.15)); height:44px; border-radius:10px; border:1px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center; font-size:.85rem; color:#e8e8ff; }
+
+    /* Intro feature cards (four-up) */
+    .feature-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin: .5rem 0 1.25rem; }
+    .feature-card { background:#fff; border:1px solid var(--border); border-radius:18px; padding:1.25rem; text-align:center; box-shadow:0 12px 30px rgba(15,23,42,.06); }
+    .feature-icon { width:40px; height:40px; border-radius:12px; margin:0 auto .5rem; display:flex; align-items:center; justify-content:center; font-size:1.25rem; }
+    .fx-blue { background:#e0f2fe; color:#0369a1; }
+    .fx-green { background:#dcfce7; color:#166534; }
+    .fx-purple { background:#ede9fe; color:#6d28d9; }
+    .fx-pink { background:#ffe4e6; color:#be185d; }
     </style>
     """, unsafe_allow_html=True)
     
-    # Ultra-modern header section
+    # Navbar
     st.markdown("""
-    <div class="ultra-header">
-        <h1>💰 Investor Tax Calculator</h1>
-        <h3>Professional ITR & GST Calculator with Advanced Analytics</h3>
-        <p>Ultra-modern FIFO calculation engine for professional tax compliance</p>
+    <div class="topnav">
+        <div class="links">
+            <a href="#top">Home</a>
+            <a href="#upload">Upload</a>
+            <a href="#results">Results</a>
+            <a href="#download">Download</a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Advanced feature highlights with 3D cards
-    col1, col2, col3, col4 = st.columns(4)
+    # Hero header section (purple style like reference)
+    st.markdown("""
+    <div class="hero">
+        <div class="hero-title">Calculate your tax liabilities</div>
+        <div class="hero-sub">Upload your portfolio CSV and get professional ITR and GST-ready summaries using a precise FIFO engine. Clean, exportable results for quick filing.</div>
+        <div class="hero-cta">
+            <span class="pill">Fast • Accurate • Private</span>
+            <span class="pill">No signup required</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
-    with col1:
-        st.markdown("""
-        <div class="feature-card-3d">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">⚡</div>
-            <h4 style="text-align: center; margin-bottom: 1rem; color: #2d3748; font-weight: 700;">FIFO Engine</h4>
-            <p style="text-align: center; color: #4a5568; margin: 0;">Advanced First-In-First-Out calculation with precision matching</p>
+    # Four-up feature row under hero
+    st.markdown("""
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon fx-blue">⚡</div>
+            <h4 style="margin:.25rem 0 .25rem 0;">FIFO Engine</h4>
+            <p style="margin:0;color:#64748b;">Advanced First-In-First-Out calculation with precision matching</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon fx-green">📊</div>
+            <h4 style="margin:.25rem 0 .25rem 0;">Smart Classification</h4>
+            <p style="margin:0;color:#64748b;">Automatic STCG/LTCG classification with 12-month precision</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon fx-purple">💎</div>
+            <h4 style="margin:.25rem 0 .25rem 0;">GST Analytics</h4>
+            <p style="margin:0;color:#64748b;">Professional 18% GST computation on all brokerage charges</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon fx-pink">🚀</div>
+            <h4 style="margin:.25rem 0 .25rem 0;">Export Ready</h4>
+            <p style="margin:0;color:#64748b;">Professional reports formatted for ITR filing and CA consultation</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Stepper progress indicator
+    if 'has_results' not in st.session_state:
+        st.session_state['has_results'] = False
+    active_results = 'active' if st.session_state['has_results'] else ''
+    st.markdown(f"""
+    <div class="stepper">
+        <div class="step active"><span class="dot">1</span>Upload</div>
+        <div class="step {active_results}"><span class="dot">2</span>Results</div>
+        <div class="step {active_results}"><span class="dot">3</span>Download</div>
         </div>
         """, unsafe_allow_html=True)
     
-    with col2:
-        st.markdown("""
-        <div class="feature-card-3d">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">📊</div>
-            <h4 style="text-align: center; margin-bottom: 1rem; color: #2d3748; font-weight: 700;">Smart Classification</h4>
-            <p style="text-align: center; color: #4a5568; margin: 0;">Automatic STCG/LTCG classification with 12-month precision</p>
-        </div>
-        """, unsafe_allow_html=True)
+    # Keep header minimal and remove extra feature cards for a cleaner look
     
-    with col3:
-        st.markdown("""
-        <div class="feature-card-3d">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">💎</div>
-            <h4 style="text-align: center; margin-bottom: 1rem; color: #2d3748; font-weight: 700;">GST Analytics</h4>
-            <p style="text-align: center; color: #4a5568; margin: 0;">Professional 18% GST computation on all brokerage charges</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown("""
-        <div class="feature-card-3d">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">🚀</div>
-            <h4 style="text-align: center; margin-bottom: 1rem; color: #2d3748; font-weight: 700;">Export Ready</h4>
-            <p style="text-align: center; color: #4a5568; margin: 0;">Professional reports formatted for ITR filing and CA consultation</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # File Upload Section (moved from sidebar to main page)
+    # File Upload Section (centered)
     st.markdown("---")
-    st.markdown("### 📁 Upload Your Portfolio Data")
-    
-    # Create two columns for upload and instructions
-    col1, col2 = st.columns([1, 1])
-    
-    with col1:
+    st.markdown("""
+    <a id="upload"></a>
+    <h3 style="text-align:center; margin-top:0;">📁 Upload Your Portfolio Data</h3>
+    """, unsafe_allow_html=True)
+    left, center, right = st.columns([1, 2, 1])
+    with center:
         st.markdown("""
-        <div class="glass-card">
-            <h3 style="color: #2d3748; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">
-                📁 Upload CSV File
-            </h3>
+        <div class="glass-card" style="text-align:center;">
+            <h3 style="margin:0 0 1rem 0; font-weight:700; color: var(--text);">📁 Upload CSV File</h3>
         </div>
         """, unsafe_allow_html=True)
-        
-        # File uploader with enhanced styling
         uploaded_file = st.file_uploader(
             "Choose your portfolio CSV file",
             type=['csv'],
             help="Upload your portfolio transactions in CSV format"
         )
-        
-        # Enhanced sample data with glassmorphism
-        st.markdown("""
-        <div class="glass-card">
-            <h4 style="color: #4c51bf; margin-bottom: 1rem;">📄 Sample Data Format</h4>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        sample_df = pd.DataFrame({
-            'Date': ['2023-01-15', '2023-06-20', '2024-02-10'],
-            'Type': ['BUY', 'BUY', 'SELL'],
-            'Stock': ['RELIANCE', 'RELIANCE', 'RELIANCE'],
-            'Qty': [100, 50, 75],
-            'Price': [2500.0, 2600.0, 2800.0],
-            'Brokerage': [25.0, 15.0, 20.0]
-        })
-        st.dataframe(sample_df, use_container_width=True)
-    
-    with col2:
-        # Enhanced format instructions
-        st.markdown("""
-        <div class="glass-card">
-            <h3 style="color: #4c51bf; margin-bottom: 1rem;">📋 Required CSV Format</h3>
-            <div style="background: rgba(102, 126, 234, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                <h4 style="margin: 0 0 1rem 0; font-weight: 700; color: #2d3748;">✅ Required Columns:</h4>
-                <div style="display: grid; gap: 0.8rem; color: #4a5568; font-size: 0.95rem;">
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Date</code> Transaction date (YYYY-MM-DD)</div>
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Type</code> BUY or SELL</div>
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Stock</code> Stock/Security name</div>
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Qty</code> Quantity traded</div>
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Price</code> Price per unit</div>
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Brokerage</code> Brokerage charges</div>
-                </div>
-                <h4 style="margin: 1.5rem 0 0.5rem 0; font-weight: 700; color: #2d3748;">✨ Optional Column:</h4>
-                <div style="color: #4a5568; font-size: 0.95rem;">
-                    <div style="display: flex; align-items: center;"><code style="background: rgba(102, 126, 234, 0.2); padding: 0.3rem 0.6rem; border-radius: 4px; margin-right: 0.5rem; font-weight: 600;">Dividend</code> Dividend received (if any)</div>
-                </div>
-            </div>
-            <div style="background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #38b2ac;">
-                <h4 style="margin: 0 0 1rem 0; color: #234e52; font-weight: 700;">💡 Quick Tips:</h4>
-                <ul style="margin: 0; color: #285e61; font-size: 0.9rem; line-height: 1.6;">
-                    <li>Ensure dates are in YYYY-MM-DD format</li>
-                    <li>Type should be exactly 'BUY' or 'SELL'</li>
-                    <li>All numeric values should be positive</li>
-                    <li>Stock names should be consistent across transactions</li>
-                </ul>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        with st.expander("See sample data format"):
+            sample_df = pd.DataFrame({
+                'Date': ['2023-01-15', '2023-06-20', '2024-02-10'],
+                'Type': ['BUY', 'BUY', 'SELL'],
+                'Stock': ['RELIANCE', 'RELIANCE', 'RELIANCE'],
+                'Qty': [100, 50, 75],
+                'Price': [2500.0, 2600.0, 2800.0],
+                'Brokerage': [25.0, 15.0, 20.0]
+            })
+            st.dataframe(sample_df, use_container_width=True)
 
     # Main content area with enhanced processing
     if uploaded_file is not None:
@@ -430,14 +260,17 @@ def main():
             with st.spinner("🔄 Processing your portfolio with AI precision..."):
                 results_df, summary = calculator.process_portfolio(uploaded_file)
             
+            # Mark results available in session state
+            st.session_state['has_results'] = (results_df is not None and not results_df.empty)
+            
             # Display results with ultra-modern design
             if not results_df.empty:
-                # Ultra-modern success banner
+                st.markdown("<a id=\"results\"></a>", unsafe_allow_html=True)
+                # Success banner (clean)
                 st.markdown("""
-                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 2rem; border-radius: 20px; color: white; text-align: center; margin: 2rem 0; box-shadow: 0 15px 40px rgba(79, 172, 254, 0.3); position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px; animation: float 15s linear infinite; pointer-events: none;"></div>
-                    <h2 style="margin: 0 0 0.5rem 0; font-size: 2rem; font-weight: 800; position: relative; z-index: 1;">✨ Portfolio Analysis Complete!</h2>
-                    <p style="margin: 0; opacity: 0.9; font-size: 1.2rem; position: relative; z-index: 1;">Your professional tax calculations are ready for review</p>
+                <div style="background: #e0f2fe; padding: 1.25rem; border-radius: 14px; color: #0c4a6e; text-align: center; margin: 1.25rem 0; border:1px solid #bae6fd;">
+                    <h2 style="margin: 0 0 0.25rem 0; font-size: 1.5rem; font-weight: 700;">✨ Portfolio analysis complete</h2>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Your tax calculations are ready</p>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -450,9 +283,9 @@ def main():
                 
                 with tab1:
                     st.markdown("""
-                    <div style="background: #f8fafc; padding: 2rem; border-radius: 16px; margin: 1rem 0; border: 1px solid #e2e8f0;">
-                        <h4 style="color: #1a365d; margin: 0 0 1.5rem 0; font-weight: 700; font-size: 1.2rem;">Capital Gains & Dividends Calculator</h4>
-                        <p style="color: #4a5568; margin: 0 0 1.5rem 0; font-size: 0.95rem;">Calculate your tax liability on capital gains and dividend income</p>
+                    <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; margin: 0.75rem 0; border: 1px solid #e2e8f0;">
+                        <h4 style="color: #0f172a; margin: 0 0 0.75rem 0; font-weight: 700; font-size: 1.05rem;">Capital Gains & Dividends</h4>
+                        <p style="color: #475569; margin: 0; font-size: 0.9rem;">Tax liability on capital gains and dividend income</p>
                     </div>
                     """, unsafe_allow_html=True)
                     
@@ -465,27 +298,27 @@ def main():
                             gain_color = "#22c55e" if total_gains >= 0 else "#ef4444"
                             gain_symbol = "+" if total_gains >= 0 else ""
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c8 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #a3d977;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: {gain_color}; font-size: 1.8rem; font-weight: 800;">{gain_symbol}₹{total_gains:,.0f}</h3>
-                                <p style="margin: 0; color: #2d5016; font-weight: 600;">Total Gains/Loss</p>
+                            <div style=\"background:#ecfeff;padding:1rem;border-radius:10px;text-align:center;border:1px solid #bae6fd;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:{gain_color};font-size:1.4rem;font-weight:800;\">{gain_symbol}₹{total_gains:,.0f}</h3>
+                                <p style=\"margin:0;color:#0f172a;font-weight:600;\">Total Gains/Loss</p>
                             </div>
                             """, unsafe_allow_html=True)
                         
                         with col2:
                             stcg_amount = summary['Total STCG']
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #fef3e2 0%, #fed7aa 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #fb8500;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: #c2410c; font-size: 1.8rem; font-weight: 800;">₹{stcg_amount:,.0f}</h3>
-                                <p style="margin: 0; color: #9a3412; font-weight: 600;">STCG (≤ 12m)</p>
+                            <div style=\"background:#fff7ed;padding:1rem;border-radius:10px;text-align:center;border:1px solid #fed7aa;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:#c2410c;font-size:1.4rem;font-weight:800;\">₹{stcg_amount:,.0f}</h3>
+                                <p style=\"margin:0;color:#9a3412;font-weight:600;\">STCG (≤ 12m)</p>
                             </div>
                             """, unsafe_allow_html=True)
                         
                         with col3:
                             ltcg_amount = summary['Total LTCG']
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #0284c7;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: #0c4a6e; font-size: 1.8rem; font-weight: 800;">₹{ltcg_amount:,.0f}</h3>
-                                <p style="margin: 0; color: #075985; font-weight: 600;">LTCG (> 12m)</p>
+                            <div style=\"background:#eff6ff;padding:1rem;border-radius:10px;text-align:center;border:1px solid #bfdbfe;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:#1d4ed8;font-size:1.4rem;font-weight:800;\">₹{ltcg_amount:,.0f}</h3>
+                                <p style=\"margin:0;color:#1e40af;font-weight:600;\">LTCG (> 12m)</p>
                             </div>
                             """, unsafe_allow_html=True)
                         
@@ -504,28 +337,8 @@ def main():
                         # Create the preview table using Streamlit's native dataframe with custom styling
                         st.markdown("""
                         <style>
-                        .stDataFrame {
-                            background: white;
-                            border-radius: 12px;
-                            overflow: hidden;
-                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                            border: 1px solid #e2e8f0;
-                        }
-                        .stDataFrame [data-testid="stTable"] {
-                            background: white;
-                        }
-                        .stDataFrame th {
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                            color: white !important;
-                            font-weight: 600 !important;
-                            text-align: center !important;
-                            padding: 1rem !important;
-                        }
-                        .stDataFrame td {
-                            text-align: center !important;
-                            padding: 0.8rem !important;
-                            border-bottom: 1px solid #f1f5f9 !important;
-                        }
+                        .stDataFrame { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+                        .stDataFrame td { padding: 0.6rem !important; border-bottom: 1px solid #f1f5f9 !important; }
                         </style>
                         """, unsafe_allow_html=True)
                         
@@ -554,18 +367,17 @@ def main():
                         with col2:
                             total_taxable = summary['Final Taxable Income']
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 16px; text-align: center; color: white; margin: 1rem 0; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);">
-                                <h4 style="margin: 0 0 0.5rem 0; font-weight: 700;">Total Taxable Income</h4>
-                                <h2 style="margin: 0 0 1rem 0; font-size: 2.2rem; font-weight: 900;">₹{total_taxable:,.0f}</h2>
-                                <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Ready for ITR filing</p>
+                            <div style=\"background:#1d4ed8;padding:1rem;border-radius:12px;text-align:center;color:#fff;border:1px solid #1e40af;\">
+                                <h4 style=\"margin:0 0 0.25rem 0;font-weight:700;\">Total Taxable Income</h4>
+                                <h2 style=\"margin:0;font-size:1.8rem;font-weight:900;\">₹{total_taxable:,.0f}</h2>
                             </div>
                             """, unsafe_allow_html=True)
                     
                 with tab2:
                     st.markdown("""
-                    <div style="background: #f0fdf4; padding: 2rem; border-radius: 16px; margin: 1rem 0; border: 1px solid #bbf7d0;">
-                        <h4 style="color: #14532d; margin: 0 0 1.5rem 0; font-weight: 700; font-size: 1.2rem;">GST Calculator</h4>
-                        <p style="color: #4a5568; margin: 0 0 1.5rem 0; font-size: 0.95rem;">Calculate GST on brokerage charges (18% rate)</p>
+                    <div style="background:#ecfeff;padding:1.25rem;border-radius:12px;margin:0.75rem 0;border:1px solid #bae6fd;">
+                        <h4 style="color:#0f172a;margin:0 0 0.75rem 0;font-weight:700;font-size:1.05rem;">GST Calculator</h4>
+                        <p style="color:#475569;margin:0;font-size:0.9rem;">GST on brokerage charges (18%)</p>
                     </div>
                     """, unsafe_allow_html=True)
                     
@@ -575,29 +387,29 @@ def main():
                         
                         with col1:
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #81d4fa;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: #01579b; font-size: 1.8rem; font-weight: 800;">₹{summary['Total Brokerage']:,.0f}</h3>
-                                <p style="margin: 0; color: #0277bd; font-weight: 600;">Total Brokerage</p>
-                                <small style="color: #0288d1; opacity: 0.8;">Before GST</small>
+                            <div style=\"background:#f8fafc;padding:1rem;border-radius:10px;text-align:center;border:1px solid #e2e8f0;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:#0f172a;font-size:1.4rem;font-weight:800;\">₹{summary['Total Brokerage']:,.0f}</h3>
+                                <p style=\"margin:0;color:#334155;font-weight:600;\">Total Brokerage</p>
+                                <small style=\"color:#64748b;opacity:0.9;\">Before GST</small>
                             </div>
                             """, unsafe_allow_html=True)
                         
                         with col2:
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #ffb300;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: #e65100; font-size: 1.8rem; font-weight: 800;">₹{summary['Total GST on Brokerage']:,.0f}</h3>
-                                <p style="margin: 0; color: #ef6c00; font-weight: 600;">Total GST (18%)</p>
-                                <small style="color: #f57c00; opacity: 0.8;">On brokerage charges</small>
+                            <div style=\"background:#fff7ed;padding:1rem;border-radius:10px;text-align:center;border:1px solid #fed7aa;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:#c2410c;font-size:1.4rem;font-weight:800;\">₹{summary['Total GST on Brokerage']:,.0f}</h3>
+                                <p style=\"margin:0;color:#9a3412;font-weight:600;\">Total GST (18%)</p>
+                                <small style=\"color:#9a3412;opacity:0.9;\">On brokerage</small>
                             </div>
                             """, unsafe_allow_html=True)
                         
                         with col3:
                             total_with_gst = summary['Total Brokerage'] + summary['Total GST on Brokerage']
                             st.markdown(f"""
-                            <div style="background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #a855f7;">
-                                <h3 style="margin: 0 0 0.5rem 0; color: #6b21a8; font-size: 1.8rem; font-weight: 800;">₹{total_with_gst:,.0f}</h3>
-                                <p style="margin: 0; color: #7c3aed; font-weight: 600;">Total with GST</p>
-                                <small style="color: #8b5cf6; opacity: 0.8;">Brokerage + GST</small>
+                            <div style=\"background:#f5f3ff;padding:1rem;border-radius:10px;text-align:center;border:1px solid #ddd6fe;\">
+                                <h3 style=\"margin:0 0 0.25rem 0;color:#5b21b6;font-size:1.4rem;font-weight:800;\">₹{total_with_gst:,.0f}</h3>
+                                <p style=\"margin:0;color:#6d28d9;font-weight:600;\">Total with GST</p>
+                                <small style=\"color:#6d28d9;opacity:0.9;\">Brokerage + GST</small>
                             </div>
                             """, unsafe_allow_html=True)
                         
@@ -605,7 +417,7 @@ def main():
                         
                         # GST Breakdown Table by Stock
                         st.markdown("""
-                        <h5 style="color: #2d3748; margin: 1.5rem 0 1rem 0; font-weight: 700;">GST Breakdown by Stock:</h5>
+                        <h5 style="color: #0f172a; margin: 1rem 0; font-weight: 700;">GST Breakdown by Stock</h5>
                         """)
                         
                         # Create GST breakdown by stock
@@ -620,28 +432,9 @@ def main():
                         # Apply custom styling for GST table
                         st.markdown("""
                         <style>
-                        .gst-dataframe {
-                            background: white;
-                            border-radius: 12px;
-                            overflow: hidden;
-                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                            border: 1px solid #e2e8f0;
-                        }
-                        .gst-dataframe [data-testid="stTable"] {
-                            background: white;
-                        }
-                        .gst-dataframe th {
-                            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-                            color: white !important;
-                            font-weight: 600 !important;
-                            text-align: center !important;
-                            padding: 1rem !important;
-                        }
-                        .gst-dataframe td {
-                            text-align: center !important;
-                            padding: 0.8rem !important;
-                            border-bottom: 1px solid #f1f5f9 !important;
-                        }
+                        .gst-dataframe { background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.06);border:1px solid #e2e8f0; }
+                        .gst-dataframe th { background:#0ea5a4 !important;color:#fff !important;text-align:center !important; }
+                        .gst-dataframe td { text-align:center !important; padding:0.6rem !important; border-bottom:1px solid #f1f5f9 !important; }
                         </style>
                         """, unsafe_allow_html=True)
                         
@@ -687,10 +480,11 @@ def main():
                 st.markdown("---")
                 
                 # Download Section
+                st.markdown("<a id=\"download\"></a>", unsafe_allow_html=True)
                 st.markdown("""
-                <div style="text-align: center; margin: 2rem 0;">
-                    <h3 style="color: #2d3748; font-weight: 700; margin-bottom: 1.5rem;">📥 Download Detailed Results</h3>
-                    <p style="color: #4a5568; margin-bottom: 2rem; font-size: 1rem;">Export complete trade-by-trade analysis for tax filing</p>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                    <h3 style="color: #0f172a; font-weight: 700; margin-bottom: 0.75rem;">📥 Download Detailed Results</h3>
+                    <p style="color: #475569; margin-bottom: 1rem; font-size: 0.95rem;">Export trade-by-trade analysis for tax filing</p>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -711,6 +505,23 @@ def main():
                         help="Download complete trade-by-trade analysis for tax filing",
                         use_container_width=True
                     )
+
+                # Required CSV format section moved to last (as text)
+                st.markdown("---")
+                st.markdown("""
+                <div class="glass-card">
+                    <h3 style="margin:0 0 0.5rem 0; color: var(--text);">📋 Required CSV Format</h3>
+                    <ul style="margin:.25rem 0 0 1rem; color:#334155; line-height:1.8;">
+                        <li><code>Date</code> — YYYY-MM-DD</li>
+                        <li><code>Type</code> — BUY or SELL</li>
+                        <li><code>Stock</code> — Security name</li>
+                        <li><code>Qty</code> — Quantity</li>
+                        <li><code>Price</code> — Price per unit</li>
+                        <li><code>Brokerage</code> — Brokerage charges</li>
+                    </ul>
+                    <p style="margin:.5rem 0 0 0; color:#64748b;">Optional: <code>Dividend</code></p>
+                </div>
+                """, unsafe_allow_html=True)
                 
 
 
@@ -732,87 +543,89 @@ def main():
         # Enhanced landing page with better instructions
         st.markdown("---")
         st.markdown("### 🚀 How to Get Started")
-        
-        # Enhanced getting started section
         st.markdown("""
-        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4ecdc4 100%); padding: 2rem; border-radius: 20px; color: white; margin: 2rem 0; text-align: center; box-shadow: 0 15px 40px rgba(240, 147, 251, 0.3);">
-            <h3 style="margin: 0 0 1rem 0; font-size: 2rem; font-weight: 700;">✨ Professional Tax Calculation in 3 Simple Steps</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">1. Prepare Your Data</h4>
-                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Use the format shown above with all required columns</p>
+        <div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1rem;">
+                <div class="material-card">
+                    <div class="material-icon mat-blue">🏆</div>
+                    <div>
+                        <div class="material-title">Goal: Prepare your data</div>
+                        <p class="material-sub">Add required columns and ensure date format is YYYY-MM-DD. Keep stock names consistent.</p>
+                    </div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">2. Upload & Process</h4>
-                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Our FIFO engine calculates everything instantly</p>
+                <div class="material-card">
+                    <div class="material-icon mat-green">🔔</div>
+                    <div>
+                        <div class="material-title">Upload & process</div>
+                        <p class="material-sub">Upload your CSV; we compute FIFO matches, classify STCG/LTCG, and apply brokerage GST.</p>
+                    </div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-weight: 600;">3. Download Results</h4>
-                    <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Get professional reports for ITR filing</p>
+                <div class="material-card">
+                    <div class="material-icon mat-amber">📈</div>
+                    <div>
+                        <div class="material-title">Review summaries</div>
+                        <p class="material-sub">Check per-stock gains, total taxable income, and GST breakdown before download.</p>
+                    </div>
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
         
-        # Enhanced features section with glassmorphism cards
-        st.markdown("### 🎆 Why Choose Our Calculator?")
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.markdown("""
-            <div class="glass-card" style="text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
-                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Core Features</h4>
-                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
-                    ✅ <strong>FIFO Method</strong> - Industry standard calculation<br>
-                    ✅ <strong>Auto Classification</strong> - STCG/LTCG detection<br>
-                    ✅ <strong>GST Calculation</strong> - 18% on brokerage charges<br>
-                    ✅ <strong>Dividend Tracking</strong> - Complete income analysis
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            st.markdown("""
-            <div class="glass-card" style="text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
-                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Supported Transactions</h4>
-                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
-                    📊 <strong>Equity Trading</strong> - All stock transactions<br>
-                    📊 <strong>Multiple Stocks</strong> - Portfolio-wide analysis<br>
-                    📊 <strong>Partial Matching</strong> - Precise quantity handling<br>
-                    📊 <strong>Date Intelligence</strong> - Smart holding period calculation
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col3:
-            st.markdown("""
-            <div class="glass-card" style="text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">💾</div>
-                <h4 style="color: #2d3748; font-weight: 700; margin-bottom: 1rem;">Professional Reports</h4>
-                <div style="text-align: left; color: #4a5568; line-height: 1.8;">
-                    📝 <strong>Detailed Analysis</strong> - Trade-by-trade breakdown<br>
-                    📝 <strong>Tax Summary</strong> - Ready for CA consultation<br>
-                    📝 <strong>ITR Ready</strong> - Formatted for tax filing<br>
-                    📝 <strong>CSV Export</strong> - Professional formatting
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Call to action with scroll-to-upload
+        # Required CSV Format as text list (no cards)
         st.markdown("""
-        <div style="text-align: center; margin: 3rem 0 2rem 0;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 16px; color: white; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
-                <h3 style="margin: 0 0 1rem 0; font-weight: 700;">👆 Ready to Calculate Your Taxes?</h3>
-                <p style="margin: 0 0 1rem 0; opacity: 0.9; font-size: 1.1rem;">Scroll up to the upload section and get started with your portfolio analysis!</p>
-                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                    <small style="opacity: 0.8;">⬆️ Upload your CSV file in the section above to begin</small>
+        <div class="glass-card" style="margin-top:1rem;">
+            <h3 style="margin:0 0 .5rem 0;">📋 Required CSV Format</h3>
+            <p style="margin:0 0 .5rem 0; color:#64748b;">Your CSV must include these columns:</p>
+            <ul style="margin:.25rem 0 0 1rem; color:#334155; line-height:1.8;">
+                <li><code>Date</code> — YYYY-MM-DD</li>
+                <li><code>Type</code> — BUY or SELL</li>
+                <li><code>Stock</code> — Security name</li>
+                <li><code>Qty</code> — Quantity</li>
+                <li><code>Price</code> — Price per unit</li>
+                <li><code>Brokerage</code> — Brokerage charges</li>
+            </ul>
+            <p style="margin:.5rem 0 0 0; color:#64748b;">Optional: <code>Dividend</code></p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # Remove extra marketing cards to keep the landing minimal
+        
+        # CTA removed for a leaner look
+    
+    # Benefits section at the end
+    st.markdown("""
+    <div class="benefits-wrap">
+        <div class="benefits-title">🌟 Why Choose Our Calculator?</div>
+        <div class="benefit-grid">
+            <div class="benefit-card">
+                <div style="text-align:center;font-size:2rem;">🔥</div>
+                <h4>Core Features</h4>
+                <div class="benefit-item"><span class="benefit-bullet">✅</span><strong>FIFO Method</strong> - Industry standard calculation</div>
+                <div class="benefit-item"><span class="benefit-bullet">✅</span><strong>Auto Classification</strong> - STCG/LTCG detection</div>
+                <div class="benefit-item"><span class="benefit-bullet">✅</span><strong>GST Calculation</strong> - 18% on brokerage</div>
+                <div class="benefit-item"><span class="benefit-bullet">✅</span><strong>Dividend Tracking</strong> - Complete income analysis</div>
                 </div>
+            <div class="benefit-card">
+                <div style="text-align:center;font-size:2rem;">📈</div>
+                <h4>Supported Transactions</h4>
+                <div class="benefit-item">📊 <strong>Equity Trading</strong> - All stock transactions</div>
+                <div class="benefit-item">📊 <strong>Multiple Stocks</strong> - Portfolio-wide analysis</div>
+                <div class="benefit-item">📊 <strong>Partial Matching</strong> - Precise quantity handling</div>
+                <div class="benefit-item">📊 <strong>Date Intelligence</strong> - Holding period</div>
+            </div>
+            <div class="benefit-card">
+                <div style="text-align:center;font-size:2rem;">💾</div>
+                <h4>Professional Reports</h4>
+                <div class="benefit-item">🧾 <strong>Detailed Analysis</strong> - Trade-by-trade</div>
+                <div class="benefit-item">🧾 <strong>Tax Summary</strong> - CA-ready</div>
+                <div class="benefit-item">🧾 <strong>ITR Ready</strong> - Formatted for filing</div>
+                <div class="benefit-item">🧾 <strong>CSV Export</strong> - Professional formatting</div>
+            </div>
+        </div>
+        <div class="cta">
+            <h3>👆 Ready to Calculate Your Taxes?</h3>
+            <p style="margin:0;opacity:.95;">Scroll to the upload section and start your portfolio analysis.</p>
+            <div class="cta-bar">⬆️ Upload your CSV in the section above to begin</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -820,35 +633,7 @@ def main():
     # Enhanced footer with better formatting
     st.markdown("---")
     
-    # Feature highlights section
-    st.markdown("### 🌟 Why Choose Our Calculator")
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #e6f3ff 0%, #bae6fd 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #93c5fd;">
-            <h4 style="color: #1e40af; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">⚡ Ultra-Fast Processing</h4>
-            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">Advanced FIFO algorithm processes thousands of transactions in seconds</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #6ee7b7;">
-            <h4 style="color: #047857; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">🔒 Secure & Private</h4>
-            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">No data storage - all calculations happen in real-time on your browser</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #fae8ff 0%, #f3e8ff 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #d8b4fe;">
-            <h4 style="color: #7c3aed; margin: 0 0 0.8rem 0; font-weight: 700; font-size: 1.1rem;">📊 Professional Reports</h4>
-            <p style="color: #374151; margin: 0; font-size: 0.9rem; line-height: 1.5;">Export-ready formats for CAs and tax filing software</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
+    # Remove post-content marketing highlights for professionalism
     
     # Simple footer
     st.markdown("""
