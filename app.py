@@ -441,122 +441,278 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # Ultra-modern tax summary dashboard
-                st.markdown("### 🎯 Tax Summary Dashboard")
-                
-                # Enhanced metric cards with custom styling
-                col1, col2, col3, col4 = st.columns(4)
-                
-                with col1:
-                    st.markdown(f"""
-                    <div class="metric-card-ultra pulse-glow" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); color: white; text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
-                        <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">₹{summary['Total STCG']:,.0f}</h2>
-                        <p style="margin: 0.5rem 0; opacity: 0.9; font-size: 1.1rem; font-weight: 600;">Short Term Capital Gains</p>
-                        <small style="opacity: 0.8; font-size: 0.9rem;">≤ 12 months holding period</small>
-                    </div>
-                    """, unsafe_allow_html=True)
-                
-                with col2:
-                    st.markdown(f"""
-                    <div class="metric-card-ultra pulse-glow" style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
-                        <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">₹{summary['Total LTCG']:,.0f}</h2>
-                        <p style="margin: 0.5rem 0; opacity: 0.9; font-size: 1.1rem; font-weight: 600;">Long Term Capital Gains</p>
-                        <small style="opacity: 0.8; font-size: 0.9rem;">> 12 months holding period</small>
-                    </div>
-                    """, unsafe_allow_html=True)
-                
-                with col3:
-                    st.markdown(f"""
-                    <div class="metric-card-ultra pulse-glow" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #2d3748; text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">💎</div>
-                        <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">₹{summary['Total Dividends']:,.0f}</h2>
-                        <p style="margin: 0.5rem 0; font-size: 1.1rem; font-weight: 600;">Total Dividends</p>
-                        <small style="opacity: 0.7; font-size: 0.9rem;">Dividend income received</small>
-                    </div>
-                    """, unsafe_allow_html=True)
-                
-                with col4:
-                    st.markdown(f"""
-                    <div class="metric-card-ultra pulse-glow" style="background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); color: #2d3748; text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
-                        <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">₹{summary['Total GST on Brokerage']:,.0f}</h2>
-                        <p style="margin: 0.5rem 0; font-size: 1.1rem; font-weight: 600;">GST on Brokerage</p>
-                        <small style="opacity: 0.7; font-size: 0.9rem;">18% of total brokerage</small>
-                    </div>
-                    """, unsafe_allow_html=True)
-                
-                st.markdown("<br>", unsafe_allow_html=True)
-                
-                # Ultra-modern final tax calculation
+                # Simplified Calculator Preview Section
                 st.markdown("---")
-                col1, col2 = st.columns([2, 1])
+                st.markdown("### 📊 Quick Calculator Preview")
                 
-                with col1:
-                    st.markdown("### 🎯 Professional Tax Calculation")
+                # Create tabs for ITR and GST calculators
+                tab1, tab2 = st.tabs(["📈 ITR Calculator", "🧮 GST Calculator"])
+                
+                with tab1:
+                    st.markdown("""
+                    <div style="background: #f8fafc; padding: 2rem; border-radius: 16px; margin: 1rem 0; border: 1px solid #e2e8f0;">
+                        <h4 style="color: #1a365d; margin: 0 0 1.5rem 0; font-weight: 700; font-size: 1.2rem;">Capital Gains & Dividends Calculator</h4>
+                        <p style="color: #4a5568; margin: 0 0 1.5rem 0; font-size: 0.95rem;">Calculate your tax liability on capital gains and dividend income</p>
+                    </div>
+                    """, unsafe_allow_html=True)
                     
-                    # Ultra-modern tax summary with glassmorphism
-                    st.markdown(f"""
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); backdrop-filter: blur(15px); padding: 3rem 2rem; border-radius: 20px; color: white; margin: 1rem 0; box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4); position: relative; overflow: hidden;">
-                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%); pointer-events: none;"></div>
-                        <div style="position: relative; z-index: 1;">
-                            <h3 style="margin: 0 0 2rem 0; font-size: 1.5rem; font-weight: 700; text-align: center;">💼 Final Tax Breakdown</h3>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                                <span style="font-size: 1.2rem; font-weight: 500;">Short Term Capital Gains (STCG)</span>
-                                <span style="font-size: 1.4rem; font-weight: 700;">₹{summary['Total STCG']:,.2f}</span>
+                    if not results_df.empty:
+                        # Add summary cards first
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            total_gains = results_df['Gain/Loss'].sum()
+                            gain_color = "#22c55e" if total_gains >= 0 else "#ef4444"
+                            gain_symbol = "+" if total_gains >= 0 else ""
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c8 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #a3d977;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: {gain_color}; font-size: 1.8rem; font-weight: 800;">{gain_symbol}₹{total_gains:,.0f}</h3>
+                                <p style="margin: 0; color: #2d5016; font-weight: 600;">Total Gains/Loss</p>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                                <span style="font-size: 1.2rem; font-weight: 500;">Long Term Capital Gains (LTCG)</span>
-                                <span style="font-size: 1.4rem; font-weight: 700;">₹{summary['Total LTCG']:,.2f}</span>
+                            """, unsafe_allow_html=True)
+                        
+                        with col2:
+                            stcg_amount = summary['Total STCG']
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #fef3e2 0%, #fed7aa 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #fb8500;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: #c2410c; font-size: 1.8rem; font-weight: 800;">₹{stcg_amount:,.0f}</h3>
+                                <p style="margin: 0; color: #9a3412; font-weight: 600;">STCG (≤ 12m)</p>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                                <span style="font-size: 1.2rem; font-weight: 500;">Dividend Income</span>
-                                <span style="font-size: 1.4rem; font-weight: 700;">₹{summary['Total Dividends']:,.2f}</span>
+                            """, unsafe_allow_html=True)
+                        
+                        with col3:
+                            ltcg_amount = summary['Total LTCG']
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #0284c7;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: #0c4a6e; font-size: 1.8rem; font-weight: 800;">₹{ltcg_amount:,.0f}</h3>
+                                <p style="margin: 0; color: #075985; font-weight: 600;">LTCG (> 12m)</p>
                             </div>
-                            <div style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1.5rem;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: rgba(255,255,255,0.2); border-radius: 15px;">
-                                    <span style="font-size: 1.5rem; font-weight: 800;">Total Taxable Income</span>
-                                    <span style="font-size: 2.2rem; font-weight: 900; color: #ffeaa7; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">₹{summary['Final Taxable Income']:,.2f}</span>
+                            """, unsafe_allow_html=True)
+                        
+                        st.markdown("<br>", unsafe_allow_html=True)
+                    
+                    # Create a simplified stock summary table
+                    if not results_df.empty:
+                        # Group by stock and calculate summary
+                        stock_summary = results_df.groupby('Stock').agg({
+                            'Buy Price': 'mean',
+                            'Sell Price': 'mean', 
+                            'Qty': 'sum',
+                            'Gain/Loss': 'sum'
+                        }).round(2)
+                        
+                        # Create the preview table using Streamlit's native dataframe with custom styling
+                        st.markdown("""
+                        <style>
+                        .stDataFrame {
+                            background: white;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            border: 1px solid #e2e8f0;
+                        }
+                        .stDataFrame [data-testid="stTable"] {
+                            background: white;
+                        }
+                        .stDataFrame th {
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                            color: white !important;
+                            font-weight: 600 !important;
+                            text-align: center !important;
+                            padding: 1rem !important;
+                        }
+                        .stDataFrame td {
+                            text-align: center !important;
+                            padding: 0.8rem !important;
+                            border-bottom: 1px solid #f1f5f9 !important;
+                        }
+                        </style>
+                        """, unsafe_allow_html=True)
+                        
+                        # Prepare the display dataframe
+                        display_df = stock_summary.copy()
+                        display_df['Buy Price'] = display_df['Buy Price'].apply(lambda x: f"₹{x:,.0f}")
+                        display_df['Sell Price'] = display_df['Sell Price'].apply(lambda x: f"₹{x:,.0f}")
+                        display_df['Qty'] = display_df['Qty'].apply(lambda x: f"{x:,.0f}")
+                        display_df['Gain/Loss'] = display_df['Gain/Loss'].apply(
+                            lambda x: f"₹{x:+,.0f}" if x >= 0 else f"₹{x:,.0f}"
+                        )
+                        
+                        # Rename columns for better display
+                        display_df.columns = ['Buy Price (₹)', 'Sell Price (₹)', 'Quantity', 'Gain/Loss (₹)']
+                        
+                        # Display the dataframe
+                        st.dataframe(
+                            display_df,
+                            use_container_width=True,
+                            height=400
+                        )
+                        
+                        # Calculate ITR button and summary
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        col1, col2, col3 = st.columns([1, 2, 1])
+                        with col2:
+                            total_taxable = summary['Final Taxable Income']
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 16px; text-align: center; color: white; margin: 1rem 0; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);">
+                                <h4 style="margin: 0 0 0.5rem 0; font-weight: 700;">Total Taxable Income</h4>
+                                <h2 style="margin: 0 0 1rem 0; font-size: 2.2rem; font-weight: 900;">₹{total_taxable:,.0f}</h2>
+                                <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Ready for ITR filing</p>
+                            </div>
+                            """, unsafe_allow_html=True)
+                    
+                with tab2:
+                    st.markdown("""
+                    <div style="background: #f0fdf4; padding: 2rem; border-radius: 16px; margin: 1rem 0; border: 1px solid #bbf7d0;">
+                        <h4 style="color: #14532d; margin: 0 0 1.5rem 0; font-weight: 700; font-size: 1.2rem;">GST Calculator</h4>
+                        <p style="color: #4a5568; margin: 0 0 1.5rem 0; font-size: 0.95rem;">Calculate GST on brokerage charges (18% rate)</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if not results_df.empty:
+                        # GST Summary Cards
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #81d4fa;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: #01579b; font-size: 1.8rem; font-weight: 800;">₹{summary['Total Brokerage']:,.0f}</h3>
+                                <p style="margin: 0; color: #0277bd; font-weight: 600;">Total Brokerage</p>
+                                <small style="color: #0288d1; opacity: 0.8;">Before GST</small>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        
+                        with col2:
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #ffb300;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: #e65100; font-size: 1.8rem; font-weight: 800;">₹{summary['Total GST on Brokerage']:,.0f}</h3>
+                                <p style="margin: 0; color: #ef6c00; font-weight: 600;">Total GST (18%)</p>
+                                <small style="color: #f57c00; opacity: 0.8;">On brokerage charges</small>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        
+                        with col3:
+                            total_with_gst = summary['Total Brokerage'] + summary['Total GST on Brokerage']
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #a855f7;">
+                                <h3 style="margin: 0 0 0.5rem 0; color: #6b21a8; font-size: 1.8rem; font-weight: 800;">₹{total_with_gst:,.0f}</h3>
+                                <p style="margin: 0; color: #7c3aed; font-weight: 600;">Total with GST</p>
+                                <small style="color: #8b5cf6; opacity: 0.8;">Brokerage + GST</small>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        
+                        # GST Breakdown Table by Stock
+                        st.markdown("""
+                        <h5 style="color: #2d3748; margin: 1.5rem 0 1rem 0; font-weight: 700;">GST Breakdown by Stock:</h5>
+                        """)
+                        
+                        # Create GST breakdown by stock
+                        gst_breakdown = results_df.groupby('Stock').agg({
+                            'Brokerage': 'sum',
+                            'GST on Brokerage': 'sum'
+                        }).round(2)
+                        
+                        # Add calculated columns
+                        gst_breakdown['Total Cost'] = gst_breakdown['Brokerage'] + gst_breakdown['GST on Brokerage']
+                        
+                        # Apply custom styling for GST table
+                        st.markdown("""
+                        <style>
+                        .gst-dataframe {
+                            background: white;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            border: 1px solid #e2e8f0;
+                        }
+                        .gst-dataframe [data-testid="stTable"] {
+                            background: white;
+                        }
+                        .gst-dataframe th {
+                            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+                            color: white !important;
+                            font-weight: 600 !important;
+                            text-align: center !important;
+                            padding: 1rem !important;
+                        }
+                        .gst-dataframe td {
+                            text-align: center !important;
+                            padding: 0.8rem !important;
+                            border-bottom: 1px solid #f1f5f9 !important;
+                        }
+                        </style>
+                        """, unsafe_allow_html=True)
+                        
+                        # Prepare display dataframe for GST
+                        gst_display_df = gst_breakdown.copy()
+                        gst_display_df['Brokerage'] = gst_display_df['Brokerage'].apply(lambda x: f"₹{x:,.2f}")
+                        gst_display_df['GST on Brokerage'] = gst_display_df['GST on Brokerage'].apply(lambda x: f"₹{x:,.2f}")
+                        gst_display_df['Total Cost'] = gst_display_df['Total Cost'].apply(lambda x: f"₹{x:,.2f}")
+                        
+                        # Rename columns for better display
+                        gst_display_df.columns = ['Brokerage (₹)', 'GST Amount (₹)', 'Total Cost (₹)']
+                        
+                        # Display the GST dataframe with custom class
+                        st.markdown('<div class="gst-dataframe">', unsafe_allow_html=True)
+                        st.dataframe(
+                            gst_display_df,
+                            use_container_width=True,
+                            height=350
+                        )
+                        st.markdown('</div>', unsafe_allow_html=True)
+                        
+                        # GST Details
+                        st.markdown("""
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <h5 style="margin: 0 0 1rem 0; color: #2d3748; font-weight: 700;">GST Calculation Details:</h5>
+                            <div style="display: grid; gap: 0.5rem; color: #4a5568; font-size: 0.9rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9;">
+                                    <span>Brokerage Amount:</span>
+                                    <span style="font-weight: 600;">₹{:.2f}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9;">
+                                    <span>GST Rate:</span>
+                                    <span style="font-weight: 600;">18%</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; color: #e65100; font-weight: 700;">
+                                    <span>Total GST:</span>
+                                    <span>₹{:.2f}</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                        """.format(summary['Total Brokerage'], summary['Total GST on Brokerage']), unsafe_allow_html=True)
+                
+                st.markdown("---")
+                
+                # Download Section
+                st.markdown("""
+                <div style="text-align: center; margin: 2rem 0;">
+                    <h3 style="color: #2d3748; font-weight: 700; margin-bottom: 1.5rem;">📥 Download Detailed Results</h3>
+                    <p style="color: #4a5568; margin-bottom: 2rem; font-size: 1rem;">Export complete trade-by-trade analysis for tax filing</p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Center the download button
+                col1, col2, col3 = st.columns([2, 1, 2])
                 
                 with col2:
-                    st.markdown("### 📊 Portfolio Statistics")
+                    # Prepare CSV data for download
+                    csv_buffer = io.StringIO()
+                    results_df.to_csv(csv_buffer, index=False)
+                    csv_data = csv_buffer.getvalue()
                     
-                    # Enhanced statistics with glassmorphism
-                    st.markdown(f"""
-                    <div class="glass-card">
-                        <h4 style="margin-top: 0; color: #2b6cb0; font-weight: 700; text-align: center;">💼 Trading Summary</h4>
-                        <div style="display: grid; gap: 1rem; margin-top: 1.5rem;">
-                            <div style="background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); padding: 1rem; border-radius: 10px; text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: #234e52;">₹{summary['Total Brokerage']:,.2f}</div>
-                                <div style="font-size: 0.9rem; color: #285e61;">Total Brokerage</div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, #fef5e7 0%, #fed7aa 100%); padding: 1rem; border-radius: 10px; text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: #744210;">₹{summary['Total GST on Brokerage']:,.2f}</div>
-                                <div style="font-size: 0.9rem; color: #975a16;">GST (18%)</div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, #e6f3ff 0%, #bae6fd 100%); padding: 1rem; border-radius: 10px; text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: #1e3a8a;">{summary['Total Trades Matched']}</div>
-                                <div style="font-size: 0.9rem; color: #1e40af;">Trades Matched</div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); padding: 0.8rem; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; text-align: center;">
-                                <div>
-                                    <div style="font-size: 1.2rem; font-weight: 600; color: #1e40af;">{summary['Total Buy Trades']}</div>
-                                    <div style="font-size: 0.8rem; color: #3b82f6;">Buy Orders</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 1.2rem; font-weight: 600; color: #1e40af;">{summary['Total Sell Trades']}</div>
-                                    <div style="font-size: 0.8rem; color: #3b82f6;">Sell Orders</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.download_button(
+                        label="📊 Download Report (CSV)",
+                        data=csv_data,
+                        file_name=f"tax_calculation_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                        mime="text/csv",
+                        help="Download complete trade-by-trade analysis for tax filing",
+                        use_container_width=True
+                    )
+                
+
 
             else:
                 st.warning("⚠️ No trades could be matched. Please check your data format.")
