@@ -697,7 +697,7 @@ def main():
     # Simple footer
     st.markdown("""
     <div style="text-align: center; padding: 2rem 0; border-top: 1px solid #e5e7eb; margin-top: 2rem;">
-        <p style="color: #6b7280; margin: 0; font-size: 0.9rem;">© 2024 Investor ITR & GST Calculator | Powered by Advanced FIFO Algorithm</p>
+        <p style="color: #6b7280; margin: 0; font-size: 0.9rem;">©  Investor ITR & GST Calculator | Powered by Advanced FIFO Algorithm</p>
         <p style="color: #9ca3af; margin: 0.5rem 0 0 0; font-size: 0.8rem;">Built with ❤️ using Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
