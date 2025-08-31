@@ -417,7 +417,7 @@ def main():
                         
                         # GST Breakdown Table by Stock
                         st.markdown("""
-                        <h5 style="color: #0f172a; margin: 1rem 0; font-weight: 700;">GST Breakdown by Stock</h5>
+                        <h4 style="color: #0f172a; margin: 1rem 0; font-weight: 700;">GST Breakdown by Stock</h4>
                         """)
                         
                         # Create GST breakdown by stock
