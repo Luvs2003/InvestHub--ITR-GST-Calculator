@@ -415,10 +415,6 @@ def main():
                         
                         st.markdown("<br>", unsafe_allow_html=True)
                         
-                        # GST Breakdown Table by Stock
-                        st.markdown("""
-                        <h4 style="color: #0f172a; margin: 1rem 0; font-weight: 700;">GST Breakdown by Stock</h4>
-                        """)
                         
                         # Create GST breakdown by stock
                         gst_breakdown = results_df.groupby('Stock').agg({
